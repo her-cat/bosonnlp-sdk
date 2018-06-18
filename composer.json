@@ -1,0 +1,23 @@
+{
+    "name": "hexianghui/bosonnlp-sdk",
+    "description": "bosonnlp-sdk is a PHP SDK for http://bosonnlp.com.",
+    "keywords": [
+        "php",
+        "bosonnlp"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hexianghui",
+            "email": "hxhsoft@foxmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "HeXiangHui\\BosonNLP\\": "src/"
+        }
+    }
+}
