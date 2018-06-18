@@ -13,7 +13,6 @@
             "email": "hxhsoft@foxmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "psr-4": {
