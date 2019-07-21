@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HeXiangHui
- * Date: 2018/6/18
- * Time: 16:18
+
+/*
+ * This file is part of the her-cat/bosonnlp-sdk.
+ *
+ * (c) her-cat <i@her-cat.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 require_once 'vendor/autoload.php';
@@ -58,7 +61,7 @@ $result = $bosonNLP->classify('俄否决安理会谴责叙军战机空袭阿勒�
 //    'Facebook收购印度初创公司',
 //]);
 
-echo $result[0] . PHP_EOL;
+echo $result[0].PHP_EOL;
 // 5
 
 $result = $bosonNLP->suggest('粉丝', 3);
@@ -78,15 +81,15 @@ print_r($result[0]['word']);
 print_r($result[0]['tag']);
 // ["n","n","vi","n","v","v","m","q"]
 
-$result = $bosonNLP->convertTime("今天晚上8点到明天下午3点", date('Y-m-d'));
+$result = $bosonNLP->convertTime('今天晚上8点到明天下午3点', date('Y-m-d'));
 
-echo $result['timespan'][0] . PHP_EOL;
+echo $result['timespan'][0].PHP_EOL;
 // 2018-06-18 20:00:00
 
-echo $result['timespan'][1] . PHP_EOL;
+echo $result['timespan'][1].PHP_EOL;
 // 2018-06-19 15:00:00
 
-echo $result['type'] . PHP_EOL;
+echo $result['type'].PHP_EOL;
 // timespan_0
 
 $result = $bosonNLP->summary(
@@ -111,7 +114,7 @@ $result = $bosonNLP->summary(
     0.1
 );
 
-echo $result . PHP_EOL;
+echo $result.PHP_EOL;
 // 腾讯科技讯（刘亚澜）10月22日消息，前优酷土豆技术副总裁黄冬已于日前正式加盟芒果TV，出任CTO一职。
 
 $result = $bosonNLP->cluster('今天天气真好', '', 0.8, 0.45, 10);

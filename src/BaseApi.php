@@ -1,64 +1,65 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HeXiangHui
- * Date: 2018/6/18
- * Time: 15:53
+
+/*
+ * This file is part of the her-cat/bosonnlp-sdk.
+ *
+ * (c) her-cat <i@her-cat.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace HeXiangHui\BosonNLP;
 
-
 /**
- * Class BaseApi
- *
- * @package HeXiangHui\BosonNLP
+ * Class BaseApi.
  */
 class BaseApi
 {
     /**
      * Your api token.
+     *
      * @var
      */
     protected $apiToken;
 
     /**
-     * 情感分析
+     * 情感分析.
      */
     const SENTIMENT_URL = 'http://api.bosonnlp.com/sentiment/analysis?%s';
 
     /**
-     * 命名实体识别
+     * 命名实体识别.
      */
     const NER_URL = 'http://api.bosonnlp.com/ner/analysis?sensitivity=';
 
     /**
-     * 依存文法分析
+     * 依存文法分析.
      */
     const DEPPARSER_URL = 'http://api.bosonnlp.com/depparser/analysis';
 
     /**
-     * 关键词提取
+     * 关键词提取.
      */
     const KEYWORD_URL = 'http://api.bosonnlp.com/keywords/analysis?';
 
     /**
-     * 新闻分类
+     * 新闻分类.
      */
     const CLASSIFY_URL = 'http://api.bosonnlp.com/classify/analysis';
 
     /**
-     * 语义联想
+     * 语义联想.
      */
     const SUGGEST_URL = 'http://api.bosonnlp.com/suggest/analysis?top_k=';
 
     /**
-     * 分词与词性标注
+     * 分词与词性标注.
      */
     const TAG_URL = 'http://api.bosonnlp.com/tag/analysis?';
 
     /**
-     * 时间转换
+     * 时间转换.
      */
     const TIME_URL = 'http://api.bosonnlp.com/time/analysis?';
 
@@ -68,12 +69,12 @@ class BaseApi
     const SUMMARY_URL = 'http://api.bosonnlp.com/summary/analysis';
 
     /**
-     * 文本聚类上传
+     * 文本聚类上传.
      */
     const CLUSTER_PUSH_URL = 'http://api.bosonnlp.com/cluster/push/%s';
 
     /**
-     * 文本聚类分析
+     * 文本聚类分析.
      */
     const CLUSTER_ANALYSIS_URL = 'http://api.bosonnlp.com/cluster/analysis/%s?';
 
@@ -83,22 +84,22 @@ class BaseApi
     const CLUSTER_STATUS_URL = 'http://api.bosonnlp.com/cluster/status/%s';
 
     /**
-     * 获取文本聚类分析结果
+     * 获取文本聚类分析结果.
      */
     const CLUSTER_RESULT_URL = 'http://api.bosonnlp.com/cluster/result/%s';
 
     /**
-     * 清除文本聚类数据
+     * 清除文本聚类数据.
      */
     const CLUSTER_CLEAR_URL = 'http://api.bosonnlp.com/cluster/clear/%s';
 
     /**
-     * 典型意见上传
+     * 典型意见上传.
      */
     const COMMENT_PUSH_URL = 'http://api.bosonnlp.com/comments/push/%s';
 
     /**
-     * 典型意见分析
+     * 典型意见分析.
      */
     const COMMENT_ANALYSIS_URL = 'http://api.bosonnlp.com/comments/analysis/%s?';
 
@@ -108,17 +109,18 @@ class BaseApi
     const COMMENT_STATUS_URL = 'http://api.bosonnlp.com/comments/status/%s';
 
     /**
-     * 获取典型意见分析结果
+     * 获取典型意见分析结果.
      */
     const COMMENT_RESULT_URL = 'http://api.bosonnlp.com/comments/result/%s';
 
     /**
-     * 清除典型意见数据
+     * 清除典型意见数据.
      */
     const COMMENT_CLEAR_URL = 'http://api.bosonnlp.com/comments/clear/%s';
 
     /**
      * BosonNLP constructor.
+     *
      * @param $api_token
      */
     public function __construct($api_token)
@@ -140,23 +142,27 @@ class BaseApi
 
         switch ($method) {
             case 'GET':
-                curl_setopt($ch, CURLOPT_HTTPGET, TRUE);
+                curl_setopt($ch, CURLOPT_HTTPGET, true);
+
                 break;
             case 'POST':
-                curl_setopt($ch, CURLOPT_POST, TRUE);
+                curl_setopt($ch, CURLOPT_POST, true);
+
                 break;
             case 'PUT':
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+
                 break;
             case 'DELETE':
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
                 break;
         }
 
         curl_setopt($ch, CURLOPT_USERAGENT, 'SSTS Browser/1.0');
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
         if ($body) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body, JSON_UNESCAPED_UNICODE));
@@ -173,9 +179,12 @@ class BaseApi
     }
 
     /**
-     * parse response
+     * parse response.
+     *
      * @param $result
+     *
      * @return array
+     *
      * @throws Exception
      */
     private function parseResponse($result)
@@ -198,8 +207,8 @@ class BaseApi
         $pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ';
 
         $id = '';
-        for($i=0; $i < $length; $i++) {
-            $id .= $pattern{mt_rand(0,35)};    //生成php随机数
+        for ($i = 0; $i < $length; ++$i) {
+            $id .= $pattern[mt_rand(0, 35)];    //生成php随机数
         }
 
         return $id;

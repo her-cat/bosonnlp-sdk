@@ -1,19 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HeXiangHui
- * Date: 2018/6/18
- * Time: 15:52
+
+/*
+ * This file is part of the her-cat/bosonnlp-sdk.
+ *
+ * (c) her-cat <i@her-cat.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace HeXiangHui\BosonNLP;
 
-
 /**
- * Class Cluster
+ * Class Cluster.
  *
- * @link http://docs.bosonnlp.com/cluster.html
- * @package HeXiangHui\BosonNLP
+ * @see http://docs.bosonnlp.com/cluster.html
  */
 class Cluster extends BaseApi
 {
@@ -24,7 +25,7 @@ class Cluster extends BaseApi
      *
      * @param $api_token
      * @param string|array $content 文本内容
-     * @param string $task_id 任务id，为空自动生成
+     * @param string       $task_id 任务id，为空自动生成
      */
     public function __construct($api_token, $content = '', $task_id = '')
     {
@@ -42,9 +43,10 @@ class Cluster extends BaseApi
     }
 
     /**
-     * 上传数据
+     * 上传数据.
      *
      * @param string|array $content 文本内容
+     *
      * @return array
      */
     public function push($content)
@@ -52,7 +54,7 @@ class Cluster extends BaseApi
         $url = sprintf(self::CLUSTER_PUSH_URL, $this->taskId);
         $body = [];
 
-        foreach ((array)$content as $item) {
+        foreach ((array) $content as $item) {
             $body[] = [
                 '_id' => isset($item['_id']) ? $item['_id'] : $this->generateId(),
                 'text' => isset($item['text']) ? $item['text'] : $item,
@@ -63,10 +65,11 @@ class Cluster extends BaseApi
     }
 
     /**
-     * 调用分析
+     * 调用分析.
      *
      * @param float $alpha 调节聚类最大cluster大小
-     * @param float $beta 调节聚类平均cluster大小
+     * @param float $beta  调节聚类平均cluster大小
+     *
      * @return array
      */
     public function analysis($alpha = 0.8, $beta = 0.45)
@@ -76,13 +79,13 @@ class Cluster extends BaseApi
             'beta' => $beta,
         ];
 
-        $url = sprintf(self::CLUSTER_ANALYSIS_URL, $this->taskId) . http_build_query($query_string);
+        $url = sprintf(self::CLUSTER_ANALYSIS_URL, $this->taskId).http_build_query($query_string);
 
         return $this->request($url, [], [], 'GET');
     }
 
     /**
-     * 等待任务完成
+     * 等待任务完成.
      *
      * @param bool $wait_time 等待时间，单位秒，传 true 会一直等待任务完成
      */
@@ -93,7 +96,7 @@ class Cluster extends BaseApi
         } else {
             while (true) {
                 $result = $this->status();
-                if (isset($result['status']) && $result['status'] == 'DONE') {
+                if (isset($result['status']) && 'DONE' == $result['status']) {
                     break;
                 }
 
@@ -115,7 +118,7 @@ class Cluster extends BaseApi
     }
 
     /**
-     * 获取结果
+     * 获取结果.
      *
      * @return array
      */
@@ -127,7 +130,7 @@ class Cluster extends BaseApi
     }
 
     /**
-     * 清除分析结果
+     * 清除分析结果.
      *
      * @return array
      */
