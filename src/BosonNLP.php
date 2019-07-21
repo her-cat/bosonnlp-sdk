@@ -1,17 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HeXiangHui
- * Date: 2018/6/18
- * Time: 15:27
+
+/*
+ * This file is part of the her-cat/bosonnlp-sdk.
+ *
+ * (c) her-cat <i@her-cat.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace HeXiangHui\BosonNLP;
 
-
 /**
- * Class BosonNLP
- * @package HeXiangHui\BosonNLP
+ * Class BosonNLP.
  */
 class BosonNLP extends BaseApi
 {
@@ -26,11 +27,13 @@ class BosonNLP extends BaseApi
     private $comment;
 
     /**
-     * 情感分析
+     * 情感分析.
      *
-     * @link http://docs.bosonnlp.com/sentiment.html
+     * @see http://docs.bosonnlp.com/sentiment.html
+     *
      * @param string|array $content 文本内容
-     * @param string $model 行业模型名称
+     * @param string       $model   行业模型名称
+     *
      * @return array
      */
     public function sentiment($content, $model = 'general')
@@ -41,25 +44,29 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 命名实体识别
+     * 命名实体识别.
      *
-     * @link http://docs.bosonnlp.com/ner.html
-     * @param string|array $content 文本内容
-     * @param int $sensitivity 调节准确率与召回率之间的平衡
+     * @see http://docs.bosonnlp.com/ner.html
+     *
+     * @param string|array $content     文本内容
+     * @param int          $sensitivity 调节准确率与召回率之间的平衡
+     *
      * @return array
      */
     public function ner($content, $sensitivity = 3)
     {
-        $url = self::NER_URL . $sensitivity;
+        $url = self::NER_URL.$sensitivity;
 
         return $this->request($url, $content);
     }
 
     /**
-     * 依存文法分析
+     * 依存文法分析.
      *
-     * @link http://docs.bosonnlp.com/depparser.html
+     * @see http://docs.bosonnlp.com/depparser.html
+     *
      * @param string|array $content 文本内容
+     *
      * @return array
      */
     public function depparser($content)
@@ -68,12 +75,14 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 关键词提取
+     * 关键词提取.
      *
-     * @link http://docs.bosonnlp.com/keywords.html
-     * @param string $content 文本内容
-     * @param int $top_k 返回结果条数
-     * @param bool $segmented bool 是否已经分词
+     * @see http://docs.bosonnlp.com/keywords.html
+     *
+     * @param string $content   文本内容
+     * @param int    $top_k     返回结果条数
+     * @param bool   $segmented bool 是否已经分词
+     *
      * @return array
      */
     public function keywords($content, $top_k = 100, $segmented = false)
@@ -83,16 +92,18 @@ class BosonNLP extends BaseApi
             $query_string['segmented'] = '';
         }
 
-        $url = self::KEYWORD_URL . http_build_query($query_string);
+        $url = self::KEYWORD_URL.http_build_query($query_string);
 
         return $this->request($url, $content);
     }
 
     /**
-     *新闻分类
+     *新闻分类.
      *
-     * @link http://docs.bosonnlp.com/classify.html
+     * @see http://docs.bosonnlp.com/classify.html
+     *
      * @param string|array $content 文本内容
+     *
      * @return array
      */
     public function classify($content)
@@ -101,41 +112,45 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 语义联想
+     * 语义联想.
      *
-     * @link http://docs.bosonnlp.com/suggest.html
+     * @see http://docs.bosonnlp.com/suggest.html
+     *
      * @param string $content 文本内容
-     * @param int $top_k 返回结果条数
+     * @param int    $top_k   返回结果条数
+     *
      * @return array
      */
     public function suggest($content, $top_k = 10)
     {
-        $url = self::SUGGEST_URL . $top_k;
+        $url = self::SUGGEST_URL.$top_k;
 
         return $this->request($url, $content);
     }
 
     /**
-     * 分词与词性标注
+     * 分词与词性标注.
      *
-     * @link  http://docs.bosonnlp.com/tag.html
-     * @param string|array $content 文本内容
-     * @param int $space_mode 空格保留选项
-     * @param int $oov_level 新词枚举强度选项
-     * @param int $t2s 繁简转换选项
-     * @param int $special_char_conv 特殊字符转换选项
+     * @see  http://docs.bosonnlp.com/tag.html
+     *
+     * @param string|array $content           文本内容
+     * @param int          $space_mode        空格保留选项
+     * @param int          $oov_level         新词枚举强度选项
+     * @param int          $t2s               繁简转换选项
+     * @param int          $special_char_conv 特殊字符转换选项
+     *
      * @return array
      */
     public function tag($content, $space_mode = 0, $oov_level = 3, $t2s = 0, $special_char_conv = 0)
     {
         $query_string = [
-            'space_mode' =>  $space_mode,
+            'space_mode' => $space_mode,
             'oov_level' => $oov_level,
             't2s' => $t2s,
             'special_char_conv' => $special_char_conv,
         ];
 
-        $url = self::TAG_URL . http_build_query($query_string);
+        $url = self::TAG_URL.http_build_query($query_string);
 
         return $this->request($url, $content);
     }
@@ -147,7 +162,7 @@ class BosonNLP extends BaseApi
             $query_string['basetime'] = $base_time;
         }
 
-        $url = self::TIME_URL . http_build_query($query_string);
+        $url = self::TIME_URL.http_build_query($query_string);
 
         return $this->request($url);
     }
@@ -167,14 +182,16 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 文本聚类引擎
+     * 文本聚类引擎.
      *
-     * @link http://docs.bosonnlp.com/cluster.html
-     * @param string|array $content 文本内容
-     * @param bool $task_id 任务id，不传自动生成
-     * @param float $alpha 调节聚类最大cluster大小
-     * @param float $beta 调节聚类平均cluster大小
-     * @param int $wait_time 等待时间，单位秒，传 true 会一直等待任务完成
+     * @see http://docs.bosonnlp.com/cluster.html
+     *
+     * @param string|array $content   文本内容
+     * @param bool         $task_id   任务id，不传自动生成
+     * @param float        $alpha     调节聚类最大cluster大小
+     * @param float        $beta      调节聚类平均cluster大小
+     * @param int          $wait_time 等待时间，单位秒，传 true 会一直等待任务完成
+     *
      * @return array
      */
     public function cluster($content, $task_id = '', $alpha = 0.8, $beta = 0.45, $wait_time = 1800)
@@ -189,10 +206,11 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 创建一个 Cluster 实例
+     * 创建一个 Cluster 实例.
      *
      * @param string|array $content 文本内容
-     * @param string $task_id 任务id，不传自动生成
+     * @param string       $task_id 任务id，不传自动生成
+     *
      * @return Cluster
      */
     public function createCluster($content = '', $task_id = '')
@@ -201,14 +219,16 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 典型意见引擎
+     * 典型意见引擎.
      *
-     * @link http://docs.bosonnlp.com/comments.html
-     * @param string|array $content 文本内容
-     * @param bool $task_id 任务id，不传自动生成
-     * @param float $alpha 调节聚类最大cluster大小
-     * @param float $beta 调节聚类平均cluster大小
-     * @param int $wait_time 等待时间，单位秒，传 true 会一直等待任务完成
+     * @see http://docs.bosonnlp.com/comments.html
+     *
+     * @param string|array $content   文本内容
+     * @param bool         $task_id   任务id，不传自动生成
+     * @param float        $alpha     调节聚类最大cluster大小
+     * @param float        $beta      调节聚类平均cluster大小
+     * @param int          $wait_time 等待时间，单位秒，传 true 会一直等待任务完成
+     *
      * @return array
      */
     public function comment($content, $task_id = '', $alpha = 0.8, $beta = 0.45, $wait_time = 1800)
@@ -223,10 +243,11 @@ class BosonNLP extends BaseApi
     }
 
     /**
-     * 创建一个 Comment 实例
+     * 创建一个 Comment 实例.
      *
      * @param string|array $content 文本内容
-     * @param string $task_id 任务id，不传自动生成
+     * @param string       $task_id 任务id，不传自动生成
+     *
      * @return Cluster
      */
     public function createComment($content = '', $task_id = '')
